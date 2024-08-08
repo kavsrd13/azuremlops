@@ -25,4 +25,4 @@ jobs:
 
       - name: Submit Azure ML Job
         run: |
-          az ml job create --file path/mslearn-mlops/src/job.yml
+          az ml job create --file path/src/job.yml
