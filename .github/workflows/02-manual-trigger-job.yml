@@ -25,4 +25,4 @@ jobs:
 
       - name: Submit Azure ML Job
         run: |
-          az ml job create --file src/job.yml
+          az ml job create --file https://github.com/kavsrd13/azuremlops/blob/c588953f1977e7fc661d0a42225ef1763113e6a3/src/job.yml
