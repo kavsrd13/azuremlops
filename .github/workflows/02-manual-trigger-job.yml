@@ -7,11 +7,17 @@ jobs:
   train-model:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
       - name: Print the current working directory
         run: pwd
 
       - name: List files in the current directory
         run: ls -la
+
+      - name: List files in all directories recursively
+        run: find . -type f -name "*.yml"
 
       - name: Install Azure CLI
         run: |
