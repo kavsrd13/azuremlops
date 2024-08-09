@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Print path of job.yml
         run: |
-         realpath src/job.yml
+         realpath ./src/job.yml
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
