@@ -24,4 +24,4 @@ jobs:
             --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
       - name: Submit Azure ML Job
         run: |
-           az ml job create --file src/job.yml
+           az ml job create --file ../src/job.yml
