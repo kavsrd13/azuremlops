@@ -1,49 +1,12 @@
-name: Trigger Azure ML Job
+name: Manually trigger an Azure Machine Learning job
+
 on:
   workflow_dispatch:
 
 jobs:
-  run-aml-job:
+  train-model:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Print Working Directory and List Files
-        run: |
-          echo "Current Directory:"
-          pwd
-          echo "Directory Listing:"
-          ls -R
-          
-      - name: Print Path of job.yml
-        run: |
-          echo "Path to job.yml:"
-          realpath ./src/job.yml
-
-      - name: Print `src` Directory Contents
-        run: |
-          ls -l src/
-
-      - name: Install Azure CLI
-        run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-      - name: Install Azure ML CLI extension
-        run: az extension add --name azure-cli-ml
-
-      - name: Verify Azure ML CLI Extension
-        run: |
-          az extension list
-          az ml --help
-
-      - name: Login to Azure
-        run: |
-          az login --service-principal \
-            --username ${{ fromJson(secrets.AZURE_CREDENTIALS).appId }} \
-            --password ${{ fromJson(secrets.AZURE_CREDENTIALS).password }} \
-            --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
-
-      - name: Submit Azure ML Job
-        run: |
-           az ml job create --file /home/runner/work/azuremlops/azuremlops/src/job.yml
+    - name: Trigger Azure Machine Learning job
+      run: |
+        az ml job create --file src/job.yml
