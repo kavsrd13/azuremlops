@@ -28,4 +28,4 @@ jobs:
 
     - name: Trigger Azure Machine Learning job
       run: |
-        az ml job create --file src/job.yml
+        az ml job create --file /src/job.yml
