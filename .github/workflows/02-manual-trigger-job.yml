@@ -1,49 +1,34 @@
 name: Manually trigger an Azure Machine Learning job
-
 on:
   workflow_dispatch:
-
 jobs:
   train-model:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
-      - name: Print the current working directory
-        run: pwd
-
-      - name: List files in the current directory
-        run: ls -la
-
-      - name: List files in all directories recursively
-        run: find . -type f -name "*.yml"
-
+      - name: Print path of job.yml
+        run: |
+         pwd
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
       - name: Install Azure ML CLI Extension
         run: |
           az extension add --name azure-cli-ml
-
       - name: Update Azure CLI and ML Extension
         run: |
           az extension remove -n azure-cli-ml
           az extension add -n ml -y
-
       - name: Verify Azure ML CLI Extension
         run: |
           az extension list
           az ml --help
-
       - name: Login to Azure
         run: |
           az login --service-principal \
             --username ${{ fromJson(secrets.AZURE_CREDENTIALS).appId }} \
             --password ${{ fromJson(secrets.AZURE_CREDENTIALS).password }} \
             --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
-
       - name: Submit Azure ML Job
         run: |
-          az ml job create --file src/job.yml --resource-group RG01 --workspace-name amldemo
+          az ml job create --file ../../src/job.yml --resource-group RG01 --workspace-name amldemo
+          
