@@ -15,8 +15,7 @@ jobs:
           az extension add --name azure-cli-ml
       - name: Update Azure CLI and ML Extension
         run: |
-          az upgrade --yes
-          az extension update --name azure-cli-ml
+          az extension add -n ml -y
       - name: Verify Azure ML CLI Extension
         run: |
           az extension list
