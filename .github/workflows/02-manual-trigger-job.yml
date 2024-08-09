@@ -16,9 +16,14 @@ jobs:
           echo "Directory Listing:"
           ls -R
 
-      - name: Print `src` Directory Contents
+      - name: Print src Directory Contents
         run: |
           ls -l src/
+
+      - name: Print Path of job.yml
+        run: |
+          echo "Path to job.yml:"
+          realpath ./src/job.yml
 
       - name: Install Azure CLI
         run: |
@@ -35,10 +40,10 @@ jobs:
       - name: Login to Azure
         run: |
           az login --service-principal \
-            --username ${{ fromJson(secrets.AZURE_CREDENTIALS).appId }} \
-            --password ${{ fromJson(secrets.AZURE_CREDENTIALS).password }} \
-            --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
+            --username ${{ secrets.AZURE_CREDENTIALS.appId }} \
+            --password ${{ secrets.AZURE_CREDENTIALS.password }} \
+            --tenant ${{ secrets.AZURE_CREDENTIALS.tenant }}
 
       - name: Submit Azure ML Job
         run: |
-           az ml job create --file ./src/job.yml
+          az ml job create --file ./src/job.yml
