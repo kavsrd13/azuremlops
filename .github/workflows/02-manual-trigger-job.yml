@@ -24,4 +24,4 @@ jobs:
 
     - name: Run Azure ML Job
       run: |
-        az ml job create --file job.yml
+        az ml job create --file job.yml --web --resource-group RG01 --workspace-name amldemo
