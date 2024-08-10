@@ -8,9 +8,6 @@ jobs:
       - name: Print path of job.yml
         run: |
          pwd
-         ls
-         ls ./src
-
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
