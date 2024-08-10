@@ -5,31 +5,39 @@ jobs:
   train-model:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Print path of job.yml
         run: |
-         ls
+          ls src
+
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
       - name: Install Azure ML CLI Extension
         run: |
           az extension add --name azure-cli-ml
+
       - name: Update Azure CLI and ML Extension
         run: |
           az extension remove -n azure-cli-ml
           az extension add -n ml -y
+
       - name: Verify Azure ML CLI Extension
         run: |
           az extension list
           az ml --help
+
       - name: Login to Azure
         run: |
           az login --service-principal \
             --username ${{ fromJson(secrets.AZURE_CREDENTIALS).appId }} \
             --password ${{ fromJson(secrets.AZURE_CREDENTIALS).password }} \
             --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
+
       - name: Submit Azure ML Job
         run: |
           cd src
-          az ml job create --file job.yml --resource-group RG01 --workspace-name  amldemo
-          
+          az ml job create --file job.yml --resource-group RG01 --workspace-name amldemo
