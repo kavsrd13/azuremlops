@@ -30,5 +30,6 @@ jobs:
             --tenant ${{ fromJson(secrets.AZURE_CREDENTIALS).tenant }}
       - name: Submit Azure ML Job
         run: |
+          cd src
           az ml job create --file job.yml --resource-group RG01 --workspace-name  amldemo
           
