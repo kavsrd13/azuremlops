@@ -3,11 +3,12 @@ code: model
 command: >-
   python train.py
   --training_data ${{inputs.training_data}}
-  --reg_rate ${{inputs.reg_rate}}
+  --reg_rate ${{parameters.reg_rate}}
 inputs:
   training_data: 
     type: uri_folder
     path: azureml:diabetes-dev:1
+parameters:
   reg_rate: 
     type: number
     default: 0.01
